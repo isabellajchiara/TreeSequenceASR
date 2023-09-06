@@ -10,20 +10,22 @@
 
 import tsinfer as ts 
 import pandas as pd
-data = pd.read_csv("haplotypes.csv")
-locations = pd.read_csv("alleleData.csv")
+data = pd.read_csv("haplotypes.csv") #import haplotypes. a matrix of haplotypes, from ASR, each col is a SegSite
+geno = data.transpose() #each row is a SegSite
+geno.drop(index=geno.index[:2], axis=0, inplace=True) #remove first two rows of identifying information
+locations = pd.read_csv("alleleData.csv") #contains morgans and alleles of each SegSite
 
-## EXMAPLE: sample_data.add_site(position=1, genotypes=[0, 0, 1, 0], alleles=["G", "C"])
+## EXAMPLE: sample_data.add_site(position=1, genotypes=[0, 0, 1, 0], alleles=["G", "C"])
 
 sample_data = ts.SampleData(path="testts.samples")
 
 nsites = len(locations.index)
-def createSampleData(data, locations) :
+def createSampleData(geno, locations) :
     for x in range(0, nsites):
-        position = locations.iloc[x,1] # position is the xth row of column 2 of locations DF
-        genotypes = data.iloc[x,2:] # genotype is the xth row of column 3:N of the data DF
+        position = locations.iloc[x,2] # position is the xth row of column 2 of locations DF
+        genotypes = geno.iloc[x,:] # row = locus. entire row = state at that locus for every obs.
         genotypes = genotypes.tolist() # genotypes must be list
-        alleles = locations.iloc[x,2] # alleles are the xth row of column 3 of the locations dataframe
+        alleles = locations.iloc[x,3] # alleles are the xth row of column 3 of the locations dataframe
         allele1 = alleles[1:2]
         allele2 = alleles[3:4]
         alleles = [allele1,allele2]
