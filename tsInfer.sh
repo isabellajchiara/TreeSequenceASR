@@ -15,3 +15,4 @@ python
 >>> exec(open('ConvertData.py').read())
 >>> createSampleData(geno, locations) # this function is defined in ConverData.py
 >>> inferred_ts = ts.infer(sample_data) # us ts.infer to infer the tree sequence
+>>> inferred_ts.dump("testTS.trees") #write file to directory
