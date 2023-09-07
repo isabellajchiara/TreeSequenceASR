@@ -4,9 +4,9 @@ cd yourDirectory
 module load python gcc
 virtualenv --no-download tsinfer
 source tsinfer/bin/activate
-
-pip install tsinfer
+pip install scipy-stack
 pip install pandas 
+
 
 salloc --time=3:00:00 --mem=50G --account=def-haricots
 
