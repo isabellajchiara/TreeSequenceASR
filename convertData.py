@@ -10,7 +10,7 @@
 
 import tsinfer as ts 
 import pandas as pd
-data = pd.read_csv("ASRhaplotypes.csv") #import haplotypes. a matrix of haplotypes, from ASR, each col is a SegSite
+data = pd.read_csv("haplotypes.csv") #import haplotypes. a matrix of haplotypes, from ASR, each col is a SegSite
 geno = data.transpose() #each row is a SegSite
 geno.drop(index=geno.index[:2], axis=0, inplace=True) #remove first two rows of identifying information
 locations = pd.read_csv("alleleData.csv") #contains morgans and alleles of each SegSite
